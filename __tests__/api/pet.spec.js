@@ -3,7 +3,7 @@ const assert = require("chai").assert;
 
 const petId = 256366920; // id do pet
 
-describe("PetStore Swagger - Pet", () => {
+describe.only("PetStore Swagger - Pet", () => {
     // Definir o caminho do serviço / API - Base URL
     const request = supertest("https://petstore.swagger.io/v2");
 
@@ -27,7 +27,7 @@ describe("PetStore Swagger - Pet", () => {
     }); // Final do Post
 
     // função Get == Reach / Read / Research == Consultar
-    it('GET Pet', () => {
+    it("GET Pet", () => {
         return request              // chamada para a requisição
             .get("/pet/" + petId)    // consulta pelo id do pet
             .then((resposta) => {
@@ -52,4 +52,13 @@ describe("PetStore Swagger - Pet", () => {
                 assert.equal(resposta.body.status, "solded");
             });
     });
+
+    // Funcção Delete == Excluir
+    it("Delete Pet", () => {
+       return request
+       .delete("/pet/" + petId)
+       .then((resposta) => {
+            assert.equal(resposta.statusCode, 200);
+       })
+    })
 });
